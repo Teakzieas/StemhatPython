@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="stemhat",
-    version="0.1.1",
+    version="0.1.2",
     author="Cytron(Divyessh)",
     author_email="divyesshev3@gmail.com",
     description="A library to control Cytron Pi StemHat",
