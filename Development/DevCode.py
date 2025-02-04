@@ -183,8 +183,9 @@ def GetHumidity():
 
 def Reset():
     OledClear()
+    OledUpdate()
     bus.write_byte_data(STEMHAT_ADDRESS,I2C_REG_RST,0xA5)
-    time.sleep(0.1)
+    
 
 
 
