@@ -84,7 +84,9 @@ time.sleep(3)
 stemhat.OledClear()
 stemhat.OledUpdate()
 stemhat.OledClear()
-stemhat.OledImage(0,0,"2.bmp",1,1)
+script_dir = os.path.dirname(os.path.abspath(__file__))
+image = os.path.join(script_dir,"2.bmp")
+stemhat.OledImage(0,0,image,1,1)
 stemhat.OledUpdate()
 
 
