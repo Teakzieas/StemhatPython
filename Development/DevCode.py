@@ -182,10 +182,10 @@ def GetHumidity():
     return humidity
 
 def Reset():
-    
-    bus.write_byte_data(STEMHAT_ADDRESS,I2C_REG_RST,0xA5)
     OledClear()
-    OledUpdate()
+    bus.write_byte_data(STEMHAT_ADDRESS,I2C_REG_RST,0xA5)
+    time.sleep(0.1)
+
 
 
 # ------------------------------------ Button ------------------------------------
@@ -225,6 +225,7 @@ image = Image.new("1", (oled.width, oled.height))
 draw = ImageDraw.Draw(image)
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
+font_path = os.path.join(script_dir,"Arial.ttf")
 
 
 def OledRectangle(x, y, height, width, fill, outline_width):
