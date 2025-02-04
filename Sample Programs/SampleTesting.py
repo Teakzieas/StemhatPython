@@ -1,5 +1,6 @@
 import time
 import stemhat
+import os
 
 # Test LEDs
 print("Testing LEDs...")
