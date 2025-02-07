@@ -1,5 +1,5 @@
 import smbus2 as smbus
-from gpiozero import Button,DigitalOutputDevice, DigitalInputDevice
+from gpiozero import Button
 import time
 import adafruit_ssd1306
 from busio import I2C
@@ -33,7 +33,8 @@ I2C_REG_AN1             = 0x10
 I2C_REG_LIGHT           = 0x11
 I2C_REG_VIN             = 0x12
 I2C_REG_BUZZER          = 0x13
-I2C_REG_RST             = 0x14
+I2c_REG_ULTRASONIC      = 0x14
+I2C_REG_RST             = 0x15
 
 bus = smbus.SMBus(1)
 
@@ -126,32 +127,6 @@ def GetVoltage():
     bus.read_byte_data(STEMHAT_ADDRESS,I2C_REG_VIN)
     return bus.read_byte_data(STEMHAT_ADDRESS,I2C_REG_VIN)
 
-trig = DigitalOutputDevice(20)
-echo = DigitalInputDevice(26, pull_up=False)
-def GetUltrasonic():
-    trig.off()
-    time.sleep(0.001)
-    trig.on()
-    time.sleep(0.00001)
-    trig.off()
-
-    start_time = time.time()
-    timeout = start_time + 0.3
-    while echo.is_active == 0:
-        if time.time() > timeout:
-            return -1
-    start_time = time.time()
-
-    timeout = start_time + 0.3
-    while echo.is_active == 1:
-        if time.time() > timeout:
-            return -1
-    end_time = time.time()
-
-    duration = (end_time - start_time) * 1_000_000
-    distance = duration / 58
-
-    return int(distance)
 
 
 def GetTemperature():
@@ -181,6 +156,13 @@ def GetHumidity():
     Hraw = ((data[3] & 0xf0) >> 4) + (data[1] << 12) + (data[2] << 4)
     humidity = 100*float(Hraw)/2**20
     return humidity
+
+def GetUltrasonic():
+    data = bus.read_i2c_block_data(STEMHAT_ADDRESS, I2c_REG_ULTRASONIC, 2)
+    high_byte = data[0]
+    low_byte = data[1]
+    distance = ((high_byte << 4) | (low_byte >> 4))
+    return distance
 
 def Reset():
     OledClear()
