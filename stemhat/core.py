@@ -6,6 +6,7 @@ from busio import I2C
 from board import SCL, SDA
 from PIL import Image, ImageDraw, ImageFont
 import importlib.resources
+from adafruit_apds9960.apds9960 import APDS9960
 
 import os
 
@@ -355,4 +356,36 @@ def OledUpdate():
     oled.image(image)
     oled.show()
 
+
+
+apds = APDS9960(i2c)
+def APDSsetMode(mode):
+    if mode==1:
+        apds.enable_proximity = True   
+        apds.enable_gesture = False
+        apds.enable_color = False 
+    elif mode==2:
+        apds.enable_proximity = True  
+        apds.enable_gesture = True
+        apds.enable_color = False
+    elif mode==3:
+        apds.enable_proximity = False   
+        apds.enable_gesture = False
+        apds.enable_color = True
+        
+
+def APDSread_gesture():
+    """Return the detected gesture or 0 if no gesture detected."""
+    gesture = apds.gesture()
+    return gesture if gesture else 0
+
+def APDSread_color():
+    """Return (R, G, B, Clear) values or None if no valid reading."""
+    if apds.color_data_ready:
+        return apds.color_data
+    return None
+
+def APDSread_proximity():
+    """Return proximity value (0-255)."""
+    return apds.proximity
 
