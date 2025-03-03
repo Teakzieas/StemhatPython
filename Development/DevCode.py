@@ -358,17 +358,20 @@ def OledUpdate():
 
 
 # Initialize APDS-9960
-apds = APDS9960(i2c)
+apds = 0
 def APDSsetMode(mode):
     if mode==1:
+        apds = APDS9960(i2c)
         apds.enable_proximity = True   
         apds.enable_gesture = False
         apds.enable_color = False 
     elif mode==2:
+        apds = APDS9960(i2c)
         apds.enable_proximity = True  
         apds.enable_gesture = True
         apds.enable_color = False
     elif mode==3:
+        apds = APDS9960(i2c)
         apds.enable_proximity = False   
         apds.enable_gesture = False
         apds.enable_color = True
