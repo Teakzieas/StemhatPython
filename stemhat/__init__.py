@@ -21,6 +21,10 @@ from .core import (
     OledScrollStop,
     OledClear,
     OledUpdate,
+    APDSread_proximity,
+    APDSread_color,
+    APDSread_gesture,
+    APDSsetMode,
 )
 
 __all__ = [
@@ -46,6 +50,10 @@ __all__ = [
     "OledScrollStop",
     "OledClear",
     "OledUpdate",
+    "APDSread_proximity",
+    "APDSread_color",
+    "APDSread_gesture",
+    "APDSsetMode",
 ]
 
 __version__ = "0.1.0"
