@@ -104,21 +104,21 @@ time.sleep(3)
 stemhat.OledScrollStop()
 
 x=3
-while x==1:
-    stemhat.APDSsetMode(1)
+stemhat.APDSsetMode(1)
+while x==1:  
     proximity = stemhat.APDSread_proximity()
     print(proximity)
     time.sleep(0.1)
-
+    
+stemhat.APDSsetMode(2)
 while x==2:
-    stemhat.APDSsetMode(2)
     gesture = stemhat.APDSread_gesture()
     if gesture:
         print(f"Gesture detected: {gesture}")
     time.sleep(0.5)
-    
+
+stemhat.APDSsetMode(3)
 while x==3:
-    stemhat.APDSsetMode(3)
     color = stemhat.APDSread_color()
     if color:
         print(f"Color detected: R={color[0]}, G={color[1]}, B={color[2]}, Clear={color[3]}")
