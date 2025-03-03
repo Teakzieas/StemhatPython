@@ -226,6 +226,75 @@ Clears the OLED display.
 Updates the OLED display with the current drawing.
 
 ---
+### APDS Gesture,Color and Proximity Sensor
+#### `APDSsetMode(mode)`
+**Description:**
+Sets the APDS-9960 sensor to one of three modes: **Proximity, Gesture, or Color detection**.
+
+**Parameters:**
+- `mode` (int):
+  - `1`: Enable **Proximity Mode**
+  - `2`: Enable **Gesture Mode**
+  - `3`: Enable **Color Mode**
+
+**Usage:**
+```python
+APDSsetMode(1)  # Enable proximity sensing
+APDSsetMode(2)  # Enable gesture recognition
+APDSsetMode(3)  # Enable color detection
+```
+
+---
+
+#### `APDSread_gesture()`
+**Description:**
+Reads and returns the detected gesture.
+
+**Returns:**
+- `string`: The detected gesture (e.g., 'up', 'down', 'left', 'right').
+- `0`: If no gesture is detected.
+
+**Usage:**
+```python
+gesture = APDSread_gesture()
+if gesture:
+    print(f"Gesture detected: {gesture}")
+```
+
+---
+
+#### `APDSread_color()`
+**Description:**
+Reads the **RGB and Clear** values from the sensor.
+
+**Returns:**
+- `tuple (R, G, B, Clear)`: The detected **red, green, blue**, and **clear (ambient light)** values.
+- `None`: If no valid color data is available.
+
+**Usage:**
+```python
+color = APDSread_color()
+if color:
+    print(f"Color detected: R={color[0]}, G={color[1]}, B={color[2]}, Clear={color[3]}")
+```
+
+---
+
+#### `APDSread_proximity()`
+**Description:**
+Reads the **proximity value**, which represents the distance of an object from the sensor (0-255).
+
+**Returns:**
+- `int`: A proximity value between `0` (far) and `255` (very close).
+
+**Usage:**
+```python
+proximity = APDSread_proximity()
+print(f"Proximity: {proximity}")
+```
+
+
+---
 ## Reset Stemhat
 #### `Reset()`
 Reset Stemhat to start state.
