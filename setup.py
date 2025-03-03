@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="stemhat",
-    version="0.2.3",
+    version="0.2.5",
     author="Cytron(Divyessh)",
     author_email="divyesshev3@gmail.com",
     description="A library to control Cytron Pi StemHat",
@@ -24,5 +24,3 @@ setup(
     },
     include_package_data=True,
 )
-
-3.1.14
